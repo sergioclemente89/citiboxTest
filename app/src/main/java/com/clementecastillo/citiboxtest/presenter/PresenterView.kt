@@ -1,0 +1,3 @@
+package com.clementecastillo.citiboxtest.presenter
+
+interface PresenterView

@@ -22,7 +22,7 @@ class PostsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val nextPageSubject = PublishSubject.create<Int>()
     private val onPostClickSubject = PublishSubject.create<Int>()
     private val onSharePostClickSubject = PublishSubject.create<Post>()
-    private var canLoadMore = false
+    private var canLoadMore = true
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
@@ -64,7 +64,7 @@ class PostsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
         fun bindPost(currentPost: Post) {
             itemView.run {
-                post_title.text = currentPost.title
+                post_title.text = currentPost.title.capitalize()
                 post_body.text = currentPost.body
                 post_share_button.setOnClickListener {
                     onSharePostClickSubject.onNext(currentPost)

@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.clementecastillo.citiboxtest.R
 import com.clementecastillo.citiboxtest.screen.base.BaseFragment
+import com.clementecastillo.citiboxtest.screen.controller.ToolbarController
 import com.clementecastillo.citiboxtestcore.domain.data.Post
 import io.reactivex.Observable
 import kotlinx.android.synthetic.main.post_list_layout.*
@@ -18,6 +19,8 @@ class PostListFragment : BaseFragment(), PostListView {
 
     @Inject
     lateinit var presenter: PostListPresenter
+    @Inject
+    lateinit var toolbarController: ToolbarController
 
     private val postsAdapter = PostsAdapter()
 
@@ -36,11 +39,13 @@ class PostListFragment : BaseFragment(), PostListView {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        configureReyclerView()
+        toolbarController.setScreenTitle(R.string.posts_list)
+        configureRecyclerView()
+        updateEmptyView()
         init(presenter, this)
     }
 
-    private fun configureReyclerView() {
+    private fun configureRecyclerView() {
         posts_recyclerview.run {
             layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
             adapter = postsAdapter
@@ -49,6 +54,7 @@ class PostListFragment : BaseFragment(), PostListView {
 
     override fun addPosts(postsList: List<Post>) {
         postsAdapter.addData(postsList)
+        updateEmptyView()
     }
 
     override fun onPostClick(): Observable<Int> {
@@ -61,6 +67,16 @@ class PostListFragment : BaseFragment(), PostListView {
 
     override fun onRequestNextPage(): Observable<Int> {
         return postsAdapter.onNextPage()
+    }
+
+    private fun updateEmptyView() {
+        if (postsAdapter.itemCount <= 1) {
+            posts_empty_view.visibility = View.VISIBLE
+            posts_recyclerview.visibility = View.INVISIBLE
+        } else {
+            posts_recyclerview.visibility = View.VISIBLE
+            posts_empty_view.visibility = View.GONE
+        }
     }
 
 }

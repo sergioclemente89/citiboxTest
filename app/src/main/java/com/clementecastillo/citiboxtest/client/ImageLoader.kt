@@ -25,7 +25,7 @@ object ImageLoader {
     }
 
     fun loadUserAvatar(userId: Int, target: ImageView, rounded: Boolean = false) {
-        load(Uri.parse("https://api.adorable.io/avatars/$userId"), target, target.width, target.height, true)
+        load(Uri.parse("https://api.adorable.io/avatars/$userId"), target, target.width, target.height, rounded)
     }
 
     @SuppressLint("CheckResult")

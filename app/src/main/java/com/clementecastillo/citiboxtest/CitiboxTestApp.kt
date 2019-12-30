@@ -21,6 +21,7 @@ class CitiboxTestApp : Application(), AppController {
 
     override fun onCreate() {
         super.onCreate()
+        appController = this
         if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.LOLLIPOP) {
             AppCompatDelegate.setCompatVectorFromResourcesEnabled(true)
         }

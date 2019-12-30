@@ -17,9 +17,12 @@ interface PostsApiClient {
     @GET("/posts")
     fun getPosts(@Query("_page") page: Int, @Query("_limit") pageCount: Int): Single<List<PostApp>>
 
+    @GET("/posts/{postId}")
+    fun getPost(@Path("postId") postId: Int): Single<PostApp>
+
     @GET("/users/{userId}")
     fun getUser(@Path("userId") userId: Int): Single<UserApp>
 
-    @GET("/posts/{postId}/comments")
-    fun getPostComments(@Path("postId") postId: Int): Single<List<CommentApp>>
+    @GET("/comments")
+    fun getPostComments(@Query("postId") postId: Int): Single<List<CommentApp>>
 }

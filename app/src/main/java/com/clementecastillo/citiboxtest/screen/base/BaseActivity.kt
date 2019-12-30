@@ -2,8 +2,10 @@ package com.clementecastillo.citiboxtest.screen.base
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.appcompat.widget.Toolbar
+import com.clementecastillo.citiboxtest.CitiboxTestApp
 import com.clementecastillo.citiboxtest.R
 import com.clementecastillo.citiboxtest.extension.fadeIn
 import com.clementecastillo.citiboxtest.extension.fadeOut
@@ -20,9 +22,16 @@ import com.clementecastillo.citiboxtest.screen.controller.LoadingController
 import com.clementecastillo.citiboxtest.screen.controller.RouterController
 import com.clementecastillo.citiboxtest.screen.controller.ToolbarController
 import com.clementecastillo.citiboxtest.screen.landing.LandingActivity
+import com.clementecastillo.citiboxtest.screen.post.details.PostDetailsFragment
+import com.clementecastillo.citiboxtest.screen.post.details.PostDetailsResultState
+import com.clementecastillo.citiboxtest.screen.post.details.PostDetailsView
 import com.clementecastillo.citiboxtest.screen.post.list.PostListFragment
+import com.clementecastillo.citiboxtest.screen.userinfo.UserInfoDialogFragment
+import com.clementecastillo.citiboxtest.screen.userinfo.UserInfoDialogView
+import com.clementecastillo.citiboxtest.screen.userinfo.UserInfoResultState
 import com.clementecastillo.citiboxtest.view.animation.RouteAnimation
 import com.clementecastillo.citiboxtestcore.domain.data.Post
+import com.clementecastillo.citiboxtestcore.domain.data.User
 import kotlinx.android.synthetic.main.loading_layout.*
 
 private const val FRAME_CONTAINER_ID = R.id.frame_container
@@ -38,6 +47,7 @@ open class BaseActivity : LifecycleActivity(), ScreenController, RouterControlle
     }
 
     private var presenter: Presenter<*>? = null
+    private val resultStateSaver by lazy { CitiboxTestApp.appController.appComponent.provideResultStateSaver() }
 
     fun <T : PresenterView> init(presenter: Presenter<T>, view: T) {
         this.presenter = presenter
@@ -57,10 +67,40 @@ open class BaseActivity : LifecycleActivity(), ScreenController, RouterControlle
         routeTo(PostListFragment.newInstance(), false, RouteAnimation.NOTHING)
     }
 
+    override fun routeToPostDetails(postId: Int) {
+        resultStateSaver.save(PostDetailsView::class, PostDetailsResultState(postId))
+        routeTo(PostDetailsFragment.newInstance(), true, RouteAnimation.TRANSLATION)
+    }
+
+    override fun showUserInfoDialog(user: User) {
+        resultStateSaver.save(UserInfoDialogView::class, UserInfoResultState(user))
+        UserInfoDialogFragment.create().show(supportFragmentManager)
+    }
+
     override fun sharePost(post: Post) {
         // TODO: Share post with intent chooser
     }
 
+    override fun sendEmail(email: String) {
+        val intent = Intent(Intent.ACTION_SENDTO).apply {
+            data = Uri.parse("mailto:$email")
+        }
+        startActivity(intent)
+    }
+
+    override fun openCaller(phone: String) {
+        val intent = Intent(Intent.ACTION_DIAL).apply {
+            data = Uri.parse("tel:$phone")
+        }
+        startActivity(intent)
+    }
+
+    override fun openNavigation(latitude: String, longitude: String) {
+        val intent = Intent(Intent.ACTION_VIEW).apply {
+            data = Uri.parse("geo:0,0?q=$latitude,$longitude")
+        }
+        startActivity(intent)
+    }
 
     fun currentFragment(): BaseFragment? {
         return supportFragmentManager.findFragmentById(FRAME_CONTAINER_ID) as BaseFragment?
@@ -132,6 +172,15 @@ open class BaseActivity : LifecycleActivity(), ScreenController, RouterControlle
 
     override fun setScreenTitle(titleResId: Int) {
         getToolbarView()?.findViewById<AppCompatTextView>(R.id.toolbar_title)?.setText(titleResId)
+    }
+
+    override fun showBackButton() {
+        getToolbarView()?.run {
+            setNavigationIcon(R.drawable.ic_back)
+            setNavigationOnClickListener {
+                onBackPressed()
+            }
+        }
     }
 
     private fun getToolbarView(): Toolbar? {

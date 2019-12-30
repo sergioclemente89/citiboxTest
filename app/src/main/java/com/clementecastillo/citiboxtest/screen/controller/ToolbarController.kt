@@ -4,4 +4,5 @@ import androidx.annotation.StringRes
 
 interface ToolbarController {
     fun setScreenTitle(@StringRes titleResId: Int)
+    fun showBackButton()
 }

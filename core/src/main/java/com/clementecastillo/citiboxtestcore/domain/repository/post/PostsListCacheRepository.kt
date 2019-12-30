@@ -7,4 +7,4 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class PostCacheRepository @Inject constructor(transactionRequest: TransactionRequest) : CacheRepository<List<Post>>(transactionRequest)
+class PostsListCacheRepository @Inject constructor(transactionRequest: TransactionRequest) : CacheRepository<List<Post>>(transactionRequest)

@@ -5,4 +5,7 @@
     <color name="colorAccent">#D81B60</color>
 
     <color name="black_translucent">#BF000000</color>
+    <color name="author_color">#3F51B5</color>
+    <color name="separator_color">#C0C0C0</color>
+    <color name="comments_background_color">#D5D5D5</color>
 </resources>

@@ -9,11 +9,11 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class PostsApiRepository @Inject constructor(
+class GetPostApiRepository @Inject constructor(
     private val transactionRequest: TransactionRequest,
     private val apiClient: ApiClient
 ) {
-    fun getPosts(currentItemCount: Int = 0): Single<Transaction<List<Post>>> {
-        return transactionRequest.wrap(apiClient.getPosts(currentItemCount))
+    fun getPost(postId: Int): Single<Transaction<Post>> {
+        return transactionRequest.wrap(apiClient.getPost(postId))
     }
 }

@@ -2,4 +2,8 @@
     <string name="app_name">Citibox Test</string>
 
     <string name="posts_list">Listado de posts</string>
+    <string name="post_details">Detalle del post</string>
+    <string name="empty_posts_list">No hay ningún post disponible</string>
+    <string name="by_author">Escrito por: %s (%s)</string>
+    <string name="x_comments">Comentarios: %d</string>
 </resources>

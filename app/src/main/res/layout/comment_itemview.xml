@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/post_item_layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="@dimen/size_s">
+
+    <TextView
+        android:id="@+id/comment_author"
+        style="@style/Text.CommentAuthor"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:text="Eliseo@gardner.biz" />
+
+    <TextView
+        android:id="@+id/comment_title"
+        style="@style/Text.CommentTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/size_xs"
+        tools:text="Título del comentario" />
+
+    <TextView
+        android:id="@+id/comment_body"
+        style="@style/Text.CommentBody"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/size_xs"
+        tools:text="@tools:sample/lorem/random" />
+
+</LinearLayout>

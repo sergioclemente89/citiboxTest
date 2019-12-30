@@ -2,8 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fitsSystemWindows="true">
+    android:layout_height="match_parent">
 
     <include layout="@layout/toolbar_view" />
 
@@ -11,6 +10,19 @@
         android:id="@+id/posts_recyclerview"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar_view" />
+
+    <TextView
+        android:id="@+id/posts_empty_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/size_xxl"
+        android:drawablePadding="@dimen/size_s"
+        android:gravity="center"
+        android:text="@string/empty_posts_list"
+        app:drawableTopCompat="@drawable/ic_empty"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar_view" />
 

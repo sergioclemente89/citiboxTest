@@ -49,7 +49,6 @@ ext {
     rxjava_version = '2.2.12'
     rxandroid_version = '2.1.1'
     rxkotlin_version = '2.4.0'
-    rxbinding_version = '3.0.0'
 
     // Dagger
     dagger_version = '2.24'

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".screen.landing.LandingActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/size_s">
+
+        <TextView
+            android:id="@+id/post_author"
+            style="@style/Text.PostAuthor"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:gravity="center_vertical"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="@string/by_author" />
+
+        <TextView
+            android:id="@+id/post_title"
+            style="@style/Text.PostTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/size_s"
+            android:ellipsize="end"
+            android:gravity="center_vertical"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/post_author"
+            tools:text="Título del post" />
+
+        <TextView
+            android:id="@+id/post_body"
+            style="@style/Text.PostBody"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/size_xs"
+            app:layout_constraintLeft_toLeftOf="@id/post_title"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/post_title"
+            tools:lines="10"
+            tools:text="@tools:sample/lorem/random" />
+
+        <TextView
+            android:id="@+id/post_comments_count"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/size_xm"
+            android:background="@color/comments_background_color"
+            android:drawablePadding="@dimen/size_xs"
+            android:paddingLeft="@dimen/size_s"
+            android:paddingRight="@dimen/size_s"
+            android:paddingTop="@dimen/size_s"
+            android:paddingBottom="@dimen/size_xs"
+            app:drawableLeftCompat="@drawable/ic_comment"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/post_body"
+            tools:text="Comentarios: 0" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/post_comments_recyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/comments_background_color"
+            android:overScrollMode="never"
+            app:layout_constraintTop_toBottomOf="@id/post_comments_count"
+            tools:listitem="@layout/comment_itemview" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</androidx.core.widget.NestedScrollView>

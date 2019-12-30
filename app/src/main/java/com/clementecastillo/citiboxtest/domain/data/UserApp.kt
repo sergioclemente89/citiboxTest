@@ -10,6 +10,7 @@ data class UserApp(
     @SerializedName("username")
     override val nickname: String,
     override val email: String,
+    override val address: AddressApp,
     override val phone: String,
     override val website: String
 ) : User

@@ -32,4 +32,23 @@
         <item name="android:textStyle">italic</item>
     </style>
 
+    <style name="Text.PostAuthor">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/author_color</item>
+        <item name="android:textStyle">italic|bold</item>
+    </style>
+
+    <style name="Text.CommentTitle">
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="Text.CommentBody">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textStyle">italic</item>
+    </style>
+
+    <style name="Text.CommentAuthor">
+        <item name="android:textSize">10sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
 </resources>

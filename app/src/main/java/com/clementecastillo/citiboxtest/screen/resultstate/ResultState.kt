@@ -1,0 +1,3 @@
+package com.clementecastillo.citiboxtest.screen.resultstate
+
+interface ResultState

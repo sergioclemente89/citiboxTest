@@ -5,6 +5,7 @@ interface User {
     val fullName: String
     val nickname: String
     val email: String
+    val address: Address
     val phone: String
     val website: String
 

@@ -22,6 +22,7 @@ import com.clementecastillo.citiboxtest.screen.controller.ToolbarController
 import com.clementecastillo.citiboxtest.screen.landing.LandingActivity
 import com.clementecastillo.citiboxtest.screen.post.list.PostListFragment
 import com.clementecastillo.citiboxtest.view.animation.RouteAnimation
+import com.clementecastillo.citiboxtestcore.domain.data.Post
 import kotlinx.android.synthetic.main.loading_layout.*
 
 private const val FRAME_CONTAINER_ID = R.id.frame_container
@@ -54,6 +55,10 @@ open class BaseActivity : LifecycleActivity(), ScreenController, RouterControlle
 
     override fun routeToPostList() {
         routeTo(PostListFragment.newInstance(), false, RouteAnimation.NOTHING)
+    }
+
+    override fun sharePost(post: Post) {
+        // TODO: Share post with intent chooser
     }
 
 

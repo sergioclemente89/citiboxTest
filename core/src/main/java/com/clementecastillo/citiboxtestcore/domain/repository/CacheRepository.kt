@@ -4,6 +4,7 @@ import com.clementecastillo.citiboxtestcore.transaction.CompletableTransaction
 import com.clementecastillo.citiboxtestcore.transaction.Transaction
 import com.clementecastillo.citiboxtestcore.transaction.TransactionRequest
 import io.reactivex.Completable
+import io.reactivex.Maybe
 import io.reactivex.Single
 
 abstract class CacheRepository<T>(private val transactionRequest: TransactionRequest, private var validityTime: Long = VALIDITY_LONG_TIME) {
@@ -16,13 +17,13 @@ abstract class CacheRepository<T>(private val transactionRequest: TransactionReq
     private var data: T? = null
     private var timestamp: Long = 0
 
-    open fun load(): Single<Transaction<T>> {
-        return transactionRequest.wrap(Single.create { subscriber ->
+    open fun load(): Maybe<Transaction<T>> {
+        return transactionRequest.wrap(Maybe.create { subscriber ->
             if (data != null && isValidTime()) {
                 subscriber.onSuccess(data!!)
             } else {
                 data = null
-                subscriber.onError(EmptyCacheException())
+                subscriber.onComplete()
             }
         })
     }

@@ -6,6 +6,7 @@ import com.clementecastillo.citiboxtestcore.transaction.CompletableTransaction
 import com.clementecastillo.citiboxtestcore.transaction.Transaction
 import com.clementecastillo.citiboxtestcore.transaction.TransactionRequest
 import io.reactivex.Completable
+import io.reactivex.Maybe
 import io.reactivex.Observable
 import io.reactivex.Single
 
@@ -32,6 +33,18 @@ class TransactionRequestImpl : TransactionRequest {
             }
         }.onErrorResumeNext { throwable: Throwable ->
             Observable.just(Transaction.Fail(throwable))
+        }
+    }
+
+    override fun <T> wrap(maybe: Maybe<T>): Maybe<Transaction<T>> {
+        return maybe.map<Transaction<T>> {
+            Transaction.Success(it)
+        }.doOnError {
+            if (BuildConfig.DEBUG && it !is EmptyCacheException) {
+                it.printStackTrace()
+            }
+        }.onErrorResumeNext { throwable: Throwable ->
+            Maybe.just(Transaction.Fail(throwable))
         }
     }
 

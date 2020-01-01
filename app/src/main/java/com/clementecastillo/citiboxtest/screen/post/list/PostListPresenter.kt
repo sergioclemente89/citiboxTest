@@ -30,7 +30,7 @@ class PostListPresenter @Inject constructor(
                             it.unFold(onSuccess = {
                                 addPosts(it)
                             }, onError = {
-                                // TODO: Show error
+                                routerController.showErrorDialogObservable().subscribe()
                             })
                         }
                 }.toComposite()

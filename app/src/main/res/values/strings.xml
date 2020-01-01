@@ -6,4 +6,7 @@
     <string name="empty_posts_list">No hay ningún post disponible</string>
     <string name="by_author">Escrito por: %s (%s)</string>
     <string name="x_comments">Comentarios: %d</string>
+    <string name="default_error_message">Ha ocurrido un error. Inténtalo de nuevo más tarde</string>
+    <string name="get_post_details_error">No hemos podido recuperar los detalles del post en estos momentos. Inténtalo de nuevo más tarde</string>
+    <string name="accept">Aceptar</string>
 </resources>

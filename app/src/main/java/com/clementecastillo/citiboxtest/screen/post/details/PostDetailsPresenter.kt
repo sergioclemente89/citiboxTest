@@ -1,8 +1,10 @@
 package com.clementecastillo.citiboxtest.screen.post.details
 
+import com.clementecastillo.citiboxtest.R
 import com.clementecastillo.citiboxtest.extension.mainThread
 import com.clementecastillo.citiboxtest.extension.throttleDefault
 import com.clementecastillo.citiboxtest.presenter.Presenter
+import com.clementecastillo.citiboxtest.screen.base.BaseDialogFragment
 import com.clementecastillo.citiboxtest.screen.controller.LoadingController
 import com.clementecastillo.citiboxtest.screen.controller.RouterController
 import com.clementecastillo.citiboxtest.screen.resultstate.ResultStateLoader
@@ -21,7 +23,7 @@ class PostDetailsPresenter @Inject constructor(
         view.run {
             resultStateLoader.load<PostDetailsResultState>(PostDetailsView::class).let {
                 if (it == null) {
-                    // TODO: Show wrong routing error
+                    showError()
                 } else {
                     getPostDetailsUseCase.bind(GetPostDetailsUseCase.Params(it.postId))
                         .doOnSubscribe { loadingController.showLoading() }
@@ -31,15 +33,23 @@ class PostDetailsPresenter @Inject constructor(
                             it.unFold(onSuccess = {
                                 bindPostDetails(it)
                             }, onError = {
-                                // TODO: Show error
+                                showError(R.string.get_post_details_error)
                             })
-                        }
+                        }.toComposite()
                 }
             }
 
             onUserInfoButtonClick().throttleDefault().subscribe {
                 routerController.showUserInfoDialog(it)
-            }
+            }.toComposite()
         }
+    }
+
+    private fun showError(messageErrorId: Int? = null) {
+        routerController.showErrorDialogObservable(messageErrorId).subscribe {
+            if (it == BaseDialogFragment.DialogStateEvent.DETACHED) {
+                routerController.goBack()
+            }
+        }.toComposite()
     }
 }

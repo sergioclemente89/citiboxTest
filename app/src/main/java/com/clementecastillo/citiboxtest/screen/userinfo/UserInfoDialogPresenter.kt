@@ -2,6 +2,7 @@ package com.clementecastillo.citiboxtest.screen.userinfo
 
 import com.clementecastillo.citiboxtest.extension.throttleDefault
 import com.clementecastillo.citiboxtest.presenter.Presenter
+import com.clementecastillo.citiboxtest.screen.base.BaseDialogFragment
 import com.clementecastillo.citiboxtest.screen.controller.RouterController
 import com.clementecastillo.citiboxtest.screen.resultstate.ResultStateLoader
 import javax.inject.Inject
@@ -15,7 +16,11 @@ class UserInfoDialogPresenter @Inject constructor(
         view.run {
             resultStateLoader.load<UserInfoResultState>(UserInfoDialogView::class).let {
                 if (it == null) {
-                    // TODO: Show routing error
+                    routerController.showErrorDialogObservable().subscribe {
+                        if (it == BaseDialogFragment.DialogStateEvent.DETACHED) {
+                            dismissDialog()
+                        }
+                    }
                 } else {
                     bindUser(it.user)
                 }

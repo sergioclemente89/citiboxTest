@@ -21,6 +21,7 @@ import com.clementecastillo.citiboxtest.presenter.PresenterView
 import com.clementecastillo.citiboxtest.screen.controller.LoadingController
 import com.clementecastillo.citiboxtest.screen.controller.RouterController
 import com.clementecastillo.citiboxtest.screen.controller.ToolbarController
+import com.clementecastillo.citiboxtest.screen.errordialog.ErrorDialogFragment
 import com.clementecastillo.citiboxtest.screen.landing.LandingActivity
 import com.clementecastillo.citiboxtest.screen.post.details.PostDetailsFragment
 import com.clementecastillo.citiboxtest.screen.post.details.PostDetailsResultState
@@ -32,6 +33,7 @@ import com.clementecastillo.citiboxtest.screen.userinfo.UserInfoResultState
 import com.clementecastillo.citiboxtest.view.animation.RouteAnimation
 import com.clementecastillo.citiboxtestcore.domain.data.Post
 import com.clementecastillo.citiboxtestcore.domain.data.User
+import io.reactivex.Observable
 import kotlinx.android.synthetic.main.loading_layout.*
 
 private const val FRAME_CONTAINER_ID = R.id.frame_container
@@ -57,6 +59,10 @@ open class BaseActivity : LifecycleActivity(), ScreenController, RouterControlle
     override fun onDestroy() {
         presenter?.clear()
         super.onDestroy()
+    }
+
+    override fun goBack() {
+        onBackPressed()
     }
 
     override fun routeToLanding() {
@@ -100,6 +106,15 @@ open class BaseActivity : LifecycleActivity(), ScreenController, RouterControlle
             data = Uri.parse("geo:0,0?q=$latitude,$longitude")
         }
         startActivity(intent)
+    }
+
+    override fun showErrorDialogObservable(messageRes: Int?): Observable<BaseDialogFragment.DialogStateEvent> {
+        val dialog = if (messageRes == null) {
+            ErrorDialogFragment.default()
+        } else {
+            ErrorDialogFragment.create(messageRes)
+        }
+        return dialog.show(supportFragmentManager).events()
     }
 
     fun currentFragment(): BaseFragment? {

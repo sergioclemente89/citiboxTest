@@ -8,6 +8,4 @@ interface User {
     val address: Address
     val phone: String
     val website: String
-
-    // TODO: Store all nested fields
 }

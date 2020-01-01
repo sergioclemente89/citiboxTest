@@ -69,4 +69,8 @@ class UserInfoDialogFragment : BaseDialogFragment(), UserInfoDialogView {
     override fun onEmailClick(): Observable<String> {
         return onEmailClickSubject
     }
+
+    override fun dismissDialog() {
+        dismiss()
+    }
 }

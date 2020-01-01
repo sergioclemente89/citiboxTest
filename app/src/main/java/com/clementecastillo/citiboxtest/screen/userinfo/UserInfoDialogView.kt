@@ -10,4 +10,5 @@ interface UserInfoDialogView : PresenterView {
     fun onAddressClick(): Observable<Address>
     fun onPhoneClick(): Observable<String>
     fun onEmailClick(): Observable<String>
+    fun dismissDialog()
 }

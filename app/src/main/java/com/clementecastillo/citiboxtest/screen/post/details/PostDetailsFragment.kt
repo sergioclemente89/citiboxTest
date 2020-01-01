@@ -15,6 +15,7 @@ import com.clementecastillo.citiboxtest.client.ImageLoader
 import com.clementecastillo.citiboxtest.extension.toPx
 import com.clementecastillo.citiboxtest.screen.base.BaseFragment
 import com.clementecastillo.citiboxtest.screen.controller.ToolbarController
+import com.clementecastillo.citiboxtestcore.domain.data.Post
 import com.clementecastillo.citiboxtestcore.domain.data.PostDetails
 import com.clementecastillo.citiboxtestcore.domain.data.User
 import io.reactivex.Observable
@@ -31,6 +32,7 @@ class PostDetailsFragment : BaseFragment(), PostDetailsView {
     lateinit var toolbarController: ToolbarController
 
     private val onUserInfoClickSubject = PublishSubject.create<User>()
+    private val onSharePostClickSubject = PublishSubject.create<Post>()
 
     companion object {
         fun newInstance() = PostDetailsFragment()
@@ -66,10 +68,15 @@ class PostDetailsFragment : BaseFragment(), PostDetailsView {
         }
 
         user_info_button.setOnClickListener { onUserInfoClickSubject.onNext(postDetails.user) }
+        post_share_button.setOnClickListener { onSharePostClickSubject.onNext(postDetails.post) }
     }
 
     override fun onUserInfoButtonClick(): Observable<User> {
         return onUserInfoClickSubject
+    }
+
+    override fun onShareButtonClick(): Observable<Post> {
+        return onSharePostClickSubject
     }
 
     inner class CommentsDecoration : RecyclerView.ItemDecoration() {

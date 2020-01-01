@@ -42,6 +42,10 @@ class PostDetailsPresenter @Inject constructor(
             onUserInfoButtonClick().throttleDefault().subscribe {
                 routerController.showUserInfoDialog(it)
             }.toComposite()
+
+            onShareButtonClick().throttleDefault().subscribe {
+                routerController.sharePost(it)
+            }.toComposite()
         }
     }
 

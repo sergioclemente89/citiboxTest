@@ -84,7 +84,19 @@ open class BaseActivity : LifecycleActivity(), ScreenController, RouterControlle
     }
 
     override fun sharePost(post: Post) {
-        // TODO: Share post with intent chooser
+        fun getShareContent(post: Post): String {
+            return "${post.title}\n\n${post.body}"
+        }
+
+        val sendIntent: Intent = Intent().apply {
+            action = Intent.ACTION_SEND
+            putExtra(Intent.EXTRA_SUBJECT, getString(R.string.share_post_subject))
+            putExtra(Intent.EXTRA_TEXT, getShareContent(post))
+            type = "text/plain"
+        }
+
+        val shareIntent = Intent.createChooser(sendIntent, null)
+        startActivity(shareIntent)
     }
 
     override fun sendEmail(email: String) {

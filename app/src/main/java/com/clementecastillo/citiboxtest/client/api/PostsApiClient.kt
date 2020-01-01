@@ -15,7 +15,12 @@ interface PostsApiClient {
     }
 
     @GET("/posts")
-    fun getPosts(@Query("_page") page: Int, @Query("_limit") pageCount: Int): Single<List<PostApp>>
+    fun getPosts(
+        @Query("_page") page: Int,
+        @Query("_limit") pageCount: Int,
+        @Query("_sort") sortField: String? = null,
+        @Query("_order") order: String? = null
+    ): Single<List<PostApp>>
 
     @GET("/posts/{postId}")
     fun getPost(@Path("postId") postId: Int): Single<PostApp>

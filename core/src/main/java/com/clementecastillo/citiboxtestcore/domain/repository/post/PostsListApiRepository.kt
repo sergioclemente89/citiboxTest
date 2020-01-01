@@ -13,7 +13,9 @@ class PostsListApiRepository @Inject constructor(
     private val transactionRequest: TransactionRequest,
     private val apiClient: ApiClient
 ) {
-    fun getPosts(currentItemCount: Int = 0): Single<Transaction<List<Post>>> {
-        return transactionRequest.wrap(apiClient.getPosts(currentItemCount))
+    fun getPosts(currentItemCount: Int = 0, sortField: String, order: String): Single<Transaction<List<Post>>> {
+        return transactionRequest.wrap(apiClient.getPosts(currentItemCount, sortField, order))
     }
 }
+
+

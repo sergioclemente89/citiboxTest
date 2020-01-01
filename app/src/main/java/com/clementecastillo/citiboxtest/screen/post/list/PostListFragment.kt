@@ -9,9 +9,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.clementecastillo.citiboxtest.R
 import com.clementecastillo.citiboxtest.screen.base.BaseFragment
-import com.clementecastillo.citiboxtest.screen.controller.ToolbarController
 import com.clementecastillo.citiboxtestcore.domain.data.Post
 import io.reactivex.Observable
+import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.post_list_layout.*
 import javax.inject.Inject
 
@@ -19,10 +19,10 @@ class PostListFragment : BaseFragment(), PostListView {
 
     @Inject
     lateinit var presenter: PostListPresenter
-    @Inject
-    lateinit var toolbarController: ToolbarController
 
     private val postsAdapter = PostsAdapter()
+
+    private val onRefreshListSubject = PublishSubject.create<Unit>()
 
     companion object {
         fun newInstance() = PostListFragment()
@@ -39,7 +39,6 @@ class PostListFragment : BaseFragment(), PostListView {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        toolbarController.setScreenTitle(R.string.posts_list)
         configureRecyclerView()
         updateEmptyView()
         init(presenter, this)
@@ -50,10 +49,18 @@ class PostListFragment : BaseFragment(), PostListView {
             layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
             adapter = postsAdapter
         }
+        posts_swipe_layout.setOnRefreshListener { onRefreshListSubject.onNext(Unit) }
+    }
+
+    override fun setPosts(postsList: List<Post>) {
+        postsAdapter.setData(postsList)
+        posts_swipe_layout.isRefreshing = false
+        updateEmptyView()
     }
 
     override fun addPosts(postsList: List<Post>) {
         postsAdapter.addData(postsList)
+        posts_swipe_layout.isRefreshing = false
         updateEmptyView()
     }
 
@@ -69,12 +76,16 @@ class PostListFragment : BaseFragment(), PostListView {
         return postsAdapter.onNextPage()
     }
 
+    override fun onRefreshList(): Observable<Unit> {
+        return onRefreshListSubject
+    }
+
     private fun updateEmptyView() {
         if (postsAdapter.itemCount <= 1) {
             posts_empty_view.visibility = View.VISIBLE
-            posts_recyclerview.visibility = View.INVISIBLE
+            posts_swipe_layout.visibility = View.INVISIBLE
         } else {
-            posts_recyclerview.visibility = View.VISIBLE
+            posts_swipe_layout.visibility = View.VISIBLE
             posts_empty_view.visibility = View.GONE
         }
     }

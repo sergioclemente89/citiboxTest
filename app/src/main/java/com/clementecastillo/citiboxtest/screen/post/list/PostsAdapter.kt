@@ -50,6 +50,11 @@ class PostsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         }
     }
 
+    fun setData(newPostsList: List<Post>) {
+        postsList.clear()
+        addData(newPostsList)
+    }
+
     fun addData(newPostsList: List<Post>) {
         canLoadMore = newPostsList.size >= ApiClientImpl.POST_PAGE_ITEM_COUNT
         postsList.addAll(newPostsList)

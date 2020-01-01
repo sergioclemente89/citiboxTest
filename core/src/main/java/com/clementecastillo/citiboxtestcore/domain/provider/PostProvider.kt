@@ -6,6 +6,7 @@ import com.clementecastillo.citiboxtestcore.domain.repository.post.GetPostApiRep
 import com.clementecastillo.citiboxtestcore.domain.repository.post.GetPostDetailsApiRepository
 import com.clementecastillo.citiboxtestcore.domain.repository.post.PostsListApiRepository
 import com.clementecastillo.citiboxtestcore.domain.repository.post.PostsListCacheRepository
+import com.clementecastillo.citiboxtestcore.transaction.CompletableTransaction
 import com.clementecastillo.citiboxtestcore.transaction.Transaction
 import com.clementecastillo.citiboxtestcore.transaction.unFold
 import io.reactivex.Single
@@ -20,16 +21,16 @@ class PostProvider @Inject constructor(
     private val getPostDetailsApiRepository: GetPostDetailsApiRepository
 ) {
 
-    fun getPosts(): Single<Transaction<List<Post>>> {
-        return postsListCacheRepository.load().switchIfEmpty(postsListApiRepository.getPosts().doOnSuccess {
+    fun getPosts(sortField: String, order: String): Single<Transaction<List<Post>>> {
+        return postsListCacheRepository.load().switchIfEmpty(postsListApiRepository.getPosts(sortField = sortField, order = order).doOnSuccess {
             it.unFold {
                 postsListCacheRepository.save(it).subscribe()
             }
         })
     }
 
-    fun getMorePosts(currentItemCount: Int): Single<Transaction<List<Post>>> {
-        return postsListApiRepository.getPosts(currentItemCount).doOnSuccess { newPostTransaction ->
+    fun getMorePosts(currentItemCount: Int, sortField: String, order: String): Single<Transaction<List<Post>>> {
+        return postsListApiRepository.getPosts(currentItemCount, sortField, order).doOnSuccess { newPostTransaction ->
             newPostTransaction.unFold { newPostsList ->
                 postsListCacheRepository.load().subscribe {
                     it.unFold {
@@ -55,5 +56,9 @@ class PostProvider @Inject constructor(
                 is Transaction.Fail -> Single.just(Transaction.Fail(it.throwable))
             }
         }
+    }
+
+    fun clearPostsListCache(): Single<CompletableTransaction> {
+        return postsListCacheRepository.clear()
     }
 }

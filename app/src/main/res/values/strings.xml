@@ -10,4 +10,10 @@
     <string name="get_post_details_error">No hemos podido recuperar los detalles del post en estos momentos. Inténtalo de nuevo más tarde</string>
     <string name="accept">Aceptar</string>
     <string name="share_post_subject">¡Mira qué post más interesante he encontrado!</string>
+    <string name="ascendant">Ascendente</string>
+    <string name="descendant">Descendente</string>
+    <string name="by_default">Por defecto</string>
+    <string name="user">Usuario</string>
+    <string name="title">Título</string>
+    <string name="content">Contenido</string>
 </resources>

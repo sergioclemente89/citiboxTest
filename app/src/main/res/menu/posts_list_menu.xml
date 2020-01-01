@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="AlwaysShowAction,MenuTitle">
+
+    <item
+        android:id="@+id/order_post_action"
+        android:icon="@drawable/ic_order"
+        app:showAsAction="always">
+
+        <menu>
+            <item
+                android:id="@+id/order_asc_action"
+                android:title="@string/ascendant" />
+            <item
+                android:id="@+id/order_desc_action"
+                android:title="@string/descendant" />
+        </menu>
+    </item>
+
+    <item
+        android:id="@+id/sort_post_action"
+        android:icon="@drawable/ic_sort"
+        app:showAsAction="always">
+
+        <menu>
+            <item
+                android:id="@+id/sort_id_action"
+                android:title="@string/by_default" />
+            <item
+                android:id="@+id/sort_user_action"
+                android:title="@string/user" />
+            <item
+                android:id="@+id/sort_title_action"
+                android:title="@string/title" />
+            <item
+                android:id="@+id/sort_body_action"
+                android:title="@string/content" />
+        </menu>
+    </item>
+
+</menu>

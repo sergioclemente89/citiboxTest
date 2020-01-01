@@ -4,6 +4,7 @@ import android.content.Context
 import com.clementecastillo.citiboxtest.BuildConfig
 import com.clementecastillo.citiboxtest.client.TransactionRequestImpl
 import com.clementecastillo.citiboxtest.client.api.ApiClientImpl
+import com.clementecastillo.citiboxtest.client.api.MockApiClient
 import com.clementecastillo.citiboxtest.client.api.PostsApiClient
 import com.clementecastillo.citiboxtestcore.client.ApiClient
 import com.clementecastillo.citiboxtestcore.transaction.TransactionRequest
@@ -81,5 +82,11 @@ class ClientModule {
         postsApiClient: PostsApiClient
     ): ApiClient {
         return ApiClientImpl(postsApiClient)
+    }
+
+    @Provides
+    @Singleton
+    fun mockApiClient(gson: Gson): MockApiClient {
+        return MockApiClient(gson)
     }
 }

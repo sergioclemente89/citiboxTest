@@ -6,13 +6,20 @@
 
     <include layout="@layout/toolbar_view" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/posts_recyclerview"
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/posts_swipe_layout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar_view" />
+        app:layout_constraintTop_toBottomOf="@+id/toolbar_view">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/posts_recyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
     <TextView
         android:id="@+id/posts_empty_view"

@@ -5,7 +5,7 @@ import com.clementecastillo.citiboxtestcore.domain.data.PostDetails
 import io.reactivex.Single
 
 interface ApiClient {
-    fun getPosts(currentItemCount: Int): Single<List<Post>>
+    fun getPosts(currentItemCount: Int, sortField: String, order: String): Single<List<Post>>
     fun getPost(postId: Int): Single<Post>
     fun getPostDetails(post: Post): Single<PostDetails>
 }

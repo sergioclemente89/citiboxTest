@@ -20,8 +20,8 @@ class ApiClientImpl(
         return (itemCount / POST_PAGE_ITEM_COUNT) + 1
     }
 
-    override fun getPosts(currentItemCount: Int): Single<List<Post>> {
-        return postsApiClient.getPosts(getPageNumber(currentItemCount), POST_PAGE_ITEM_COUNT).execute()
+    override fun getPosts(currentItemCount: Int, sortField: String, order: String): Single<List<Post>> {
+        return postsApiClient.getPosts(getPageNumber(currentItemCount), POST_PAGE_ITEM_COUNT, sortField, order).execute()
     }
 
     override fun getPost(postId: Int): Single<Post> {

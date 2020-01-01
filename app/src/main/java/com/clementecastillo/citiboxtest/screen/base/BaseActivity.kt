@@ -210,6 +210,22 @@ open class BaseActivity : LifecycleActivity(), ScreenController, RouterControlle
         }
     }
 
+    override fun setToolbarMenu(menu: Int): Observable<Int> {
+        return Observable.create<Int> { emitter ->
+            getToolbarView()?.apply {
+                inflateMenu(menu)
+                setOnMenuItemClickListener {
+                    emitter.onNext(it.itemId)
+                    true
+                }
+            }
+        }
+    }
+
+    override fun clearToolbarMenu() {
+        getToolbarView()?.menu?.clear()
+    }
+
     private fun getToolbarView(): Toolbar? {
         return findViewById(R.id.toolbar_view)
     }

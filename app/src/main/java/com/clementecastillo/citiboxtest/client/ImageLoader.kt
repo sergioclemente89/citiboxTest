@@ -3,6 +3,7 @@ package com.clementecastillo.citiboxtest.client
 import android.annotation.SuppressLint
 import android.graphics.drawable.Drawable
 import android.net.Uri
+import android.os.Build
 import android.widget.ImageView
 import androidx.core.content.ContextCompat
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable
@@ -14,7 +15,6 @@ import com.bumptech.glide.request.RequestOptions
 import com.clementecastillo.citiboxtest.R
 import com.clementecastillo.citiboxtest.extension.toPx
 
-
 object ImageLoader {
 
     fun load(uri: Uri, target: ImageView, width: Int = 0, height: Int = 0, rounded: Boolean = false, errorDrawable: Drawable? = null) {
@@ -25,7 +25,11 @@ object ImageLoader {
     }
 
     fun loadUserAvatar(userId: Int, target: ImageView, rounded: Boolean = false) {
-        load(Uri.parse("https://api.adorable.io/avatars/$userId"), target, target.width, target.height, rounded)
+        load(Uri.parse(getAvatarUserUrl(userId)), target, target.width, target.height, rounded)
+    }
+
+    private fun getAvatarUserUrl(userId: Int): String {
+        return "${if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.LOLLIPOP) "http" else "https"}://api.adorable.io/avatars/$userId"
     }
 
     @SuppressLint("CheckResult")

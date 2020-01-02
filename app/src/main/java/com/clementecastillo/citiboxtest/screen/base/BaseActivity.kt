@@ -3,8 +3,10 @@ package com.clementecastillo.citiboxtest.screen.base
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.net.Uri
+import android.os.Bundle
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.appcompat.widget.Toolbar
+import androidx.core.content.ContextCompat
 import com.clementecastillo.citiboxtest.CitiboxTestApp
 import com.clementecastillo.citiboxtest.R
 import com.clementecastillo.citiboxtest.extension.fadeIn
@@ -30,6 +32,7 @@ import com.clementecastillo.citiboxtest.screen.post.list.PostListFragment
 import com.clementecastillo.citiboxtest.screen.userinfo.UserInfoDialogFragment
 import com.clementecastillo.citiboxtest.screen.userinfo.UserInfoDialogView
 import com.clementecastillo.citiboxtest.screen.userinfo.UserInfoResultState
+import com.clementecastillo.citiboxtest.view.SystemBarTintManager
 import com.clementecastillo.citiboxtest.view.animation.RouteAnimation
 import com.clementecastillo.citiboxtestcore.domain.data.Post
 import com.clementecastillo.citiboxtestcore.domain.data.User
@@ -50,10 +53,19 @@ open class BaseActivity : LifecycleActivity(), ScreenController, RouterControlle
 
     private var presenter: Presenter<*>? = null
     private val resultStateSaver by lazy { CitiboxTestApp.appController.appComponent.provideResultStateSaver() }
+    open val tintStatusBar = true
 
     fun <T : PresenterView> init(presenter: Presenter<T>, view: T) {
         this.presenter = presenter
         presenter.initWith(view)
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        SystemBarTintManager(this).apply {
+            isStatusBarTintEnabled = tintStatusBar
+            setTintColor(ContextCompat.getColor(applicationContext, R.color.statusbar_color))
+        }
     }
 
     override fun onDestroy() {

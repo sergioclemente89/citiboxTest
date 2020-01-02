@@ -15,6 +15,7 @@ class SplashActivity : BaseActivity(), SplashView {
     @Inject
     lateinit var presenter: SplashPresenter
     private val onAnimationFinishSubject = PublishSubject.create<Unit>()
+    override val tintStatusBar: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

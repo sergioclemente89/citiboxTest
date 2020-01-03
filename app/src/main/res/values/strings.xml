@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">Citibox Test</string>
+
+    <string name="posts_list">Listado de posts</string>
+    <string name="post_details">Detalle del post</string>
+    <string name="empty_posts_list">No hay ningún post disponible</string>
+    <string name="by_author">Escrito por: %s (%s)</string>
+    <string name="x_comments">Comentarios: %d</string>
+    <string name="default_error_message">Ha ocurrido un error. Inténtalo de nuevo más tarde</string>
+    <string name="get_post_details_error">No hemos podido recuperar los detalles del post en estos momentos. Inténtalo de nuevo más tarde</string>
+    <string name="accept">Aceptar</string>
+    <string name="share_post_subject">¡Mira qué post más interesante he encontrado!</string>
+    <string name="ascendant">Ascendente</string>
+    <string name="descendant">Descendente</string>
+    <string name="by_default">Por defecto</string>
+    <string name="user">Usuario</string>
+    <string name="title">Título</string>
+    <string name="content">Contenido</string>
+</resources>

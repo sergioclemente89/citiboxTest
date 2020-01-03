@@ -6,5 +6,4 @@ interface Post {
     val title: String
     val body: String
     var user: User?
-    var comments: List<Comment>
 }

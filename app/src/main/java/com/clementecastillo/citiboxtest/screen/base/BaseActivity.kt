@@ -213,6 +213,10 @@ open class BaseActivity : LifecycleActivity(), ScreenController, RouterControlle
         getToolbarView()?.findViewById<AppCompatTextView>(R.id.toolbar_title)?.setText(titleResId)
     }
 
+    override fun getScreenTitle(): String? {
+        return getToolbarView()?.findViewById<AppCompatTextView>(R.id.toolbar_title)?.text.toString()
+    }
+
     override fun showBackButton() {
         getToolbarView()?.run {
             setNavigationIcon(R.drawable.ic_back)
@@ -238,7 +242,7 @@ open class BaseActivity : LifecycleActivity(), ScreenController, RouterControlle
         getToolbarView()?.menu?.clear()
     }
 
-    private fun getToolbarView(): Toolbar? {
+    fun getToolbarView(): Toolbar? {
         return findViewById(R.id.toolbar_view)
     }
 

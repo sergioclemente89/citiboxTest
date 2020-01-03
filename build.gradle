@@ -59,4 +59,7 @@ ext {
 
     // lottie
     lottie = '3.0.6'
+
+    junit_version = '4.13'
+    robolectric_version = '4.3.1'
 }
